@@ -1,14 +1,37 @@
-import React from 'react'
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
+import { DataProvider } from './contexts/DataContext';
+import Navbar from './components/Navbar';
+import Home from './pages/Home';
+import Fixtures from './pages/Fixtures';
+import Leaderboard from './pages/Leaderboard';
+import Profile from './pages/Profile';
+import Login from './pages/Login';
+import Register from './pages/Register';
 
 function App() {
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-md">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">Premier League Predictor</h1>
-        <p className="text-gray-600">Welcome to the Premier League Prediction Game!</p>
-      </div>
-    </div>
-  )
+    <AuthProvider>
+      <DataProvider>
+        <Router>
+          <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
+            <Navbar />
+            <main className="container mx-auto px-4 py-8">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/fixtures" element={<Fixtures />} />
+                <Route path="/leaderboard" element={<Leaderboard />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+              </Routes>
+            </main>
+          </div>
+        </Router>
+      </DataProvider>
+    </AuthProvider>
+  );
 }
 
-export default App
+export default App;
